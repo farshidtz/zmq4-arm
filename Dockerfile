@@ -7,6 +7,7 @@ RUN apt update && \
 WORKDIR /home
 
 ARG ZEROMQ_VER=4.3.1
+LABEL ZEROMQ_VER=$ZEROMQ_VER
 # Download and extract zeromq
 ADD https://github.com/zeromq/libzmq/releases/download/v${ZEROMQ_VER}/zeromq-${ZEROMQ_VER}.tar.gz .
 RUN tar xf zeromq-${ZEROMQ_VER}.tar.gz
@@ -17,10 +18,8 @@ RUN ./configure --host=arm-none-linux-gnueabihf CC=arm-linux-gnueabihf-gcc CXX=a
 RUN make
 RUN make install
 
-ARG PROJECT_DIR=/home/project
 # Setup the compilation environment
-WORKDIR ${PROJECT_DIR}
-ENV GOPATH=${PROJECT_DIR}
+WORKDIR /home
 ENV CGO_CPPFLAGS="-I/usr/include"
 ENV CGO_LDFLAGS="-L/usr/lib -lzmq -lpthread -lrt -lstdc++ -lm -lc -lgcc"
 ENV CC="/usr/bin/arm-linux-gnueabihf-gcc"
@@ -30,6 +29,7 @@ ENV CGO_ENABLED=1
 ENV GOOS=linux
 ENV GOARCH=arm
 ENV GOARM=7
+ENV GO111MODULE=on
 
-VOLUME ${PROJECT_DIR}
-ENTRYPOINT ["go", "install", "-v", "--ldflags", "-extldflags '-static'"] 
+VOLUME /home
+ENTRYPOINT ["go", "build", "-v", "--ldflags", "-extldflags '-static'"] 
