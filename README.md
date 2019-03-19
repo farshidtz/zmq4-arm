@@ -5,13 +5,19 @@
 armhf cross-compilation toolchain for [github.com/pebbe/zmq4](https://github.com/pebbe/zmq4)
 
 ### Usage
-The container executes `go install` from `/home/project` in ENTRYPOINT. The package name should be passed as the [docker run command](https://docs.docker.com/engine/reference/run/#cmd-default-command-or-options).
+The container executes `go build` from `/home` in ENTRYPOINT. Other build options should be passed to `go build` as the [docker run command](https://docs.docker.com/engine/reference/run/#cmd-default-command-or-options).
 #### Clone / prepare the Go package
 ```
-git clone <repo> src/<package-name>
+git clone <repo>
 ```
 #### Build using the container
+Note: `GO111MODULE` is set to `on`
 ```
-docker run --rm -v $(pwd):/home/project farshidtz/zmq4-arm <package-name>
+docker run --rm -v $(pwd):/home farshidtz/zmq4-arm [GO BUILD OPTIONS]
 ```
-The resulting executable will be available in `$(pwd)/bin`
+
+Example:
+```
+docker run --rm -v $(pwd):/home farshidtz/zmq4-arm -o bin/app ./package
+```
+builds the package in package directory and outputs the executable to /home/bin/app
