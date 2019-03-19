@@ -29,7 +29,6 @@ ENV CGO_ENABLED=1
 ENV GOOS=linux
 ENV GOARCH=arm
 ENV GOARM=7
-ENV GO111MODULE=on
 
 VOLUME /home
 ENTRYPOINT ["go", "build", "-v", "--ldflags", "-extldflags '-static'"] 
