@@ -23,12 +23,12 @@ WORKDIR /home
 ENV CGO_CPPFLAGS="-I/usr/include"
 ENV CGO_LDFLAGS="-L/usr/lib -lzmq -lpthread -lrt -lstdc++ -lm -lc -lgcc"
 ENV CC="/usr/bin/arm-linux-gnueabihf-gcc"
-ENV CFLAGS="-march=armv7-a -mfpu=neon"
+ENV CFLAGS="-march=armv6-a -mfpu=neon"
 ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 ENV CGO_ENABLED=1
 ENV GOOS=linux
 ENV GOARCH=arm
-ENV GOARM=7
+ENV GOARM=6
 
 VOLUME /home
 ENTRYPOINT ["go", "build", "-v", "--ldflags", "-extldflags '-static'"] 
