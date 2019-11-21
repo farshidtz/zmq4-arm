@@ -7,7 +7,7 @@ before_script:
   - git clone https://github.com/pebbe/zmq4.git src/github.com/pebbe/zmq4
 
 script:
-  - docker run --rm -v $(pwd):/home farshidtz/zmq4-arm -o bin/wuserver src/github.com/pebbe/zmq4/examples/wuserver.go
+  - docker run --rm -e GOPATH=/home -v $(pwd):/home farshidtz/zmq4-arm -o bin/wuserver src/github.com/pebbe/zmq4/examples/wuserver.go
 
 before_deploy:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
