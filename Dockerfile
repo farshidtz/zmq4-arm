@@ -6,7 +6,7 @@ RUN apt update && \
 
 WORKDIR /home
 
-ARG ZEROMQ_VER=4.3.1
+ARG ZEROMQ_VER=4.3.2
 LABEL ZEROMQ_VER=$ZEROMQ_VER
 # Download and extract zeromq
 ADD https://github.com/zeromq/libzmq/releases/download/v${ZEROMQ_VER}/zeromq-${ZEROMQ_VER}.tar.gz .
