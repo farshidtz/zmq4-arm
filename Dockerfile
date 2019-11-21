@@ -1,4 +1,4 @@
-FROM golang:1.12
+FROM golang:1.13
 
 RUN apt update && \
     apt install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
